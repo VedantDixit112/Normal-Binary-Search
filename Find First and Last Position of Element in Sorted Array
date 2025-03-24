@@ -1,0 +1,46 @@
+class Solution {
+    public int[] searchRange(int[] arr, int target) {
+        int []res=new int[2];
+        res[0]=path(arr,target);
+        res[1]=path1(arr,target);
+        return res;
+    }
+    public int path(int []arr,int target){
+        int ans=-1;
+        int low=0;
+        int high=arr.length-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(arr[mid]==target){
+                ans=mid;
+                high=mid-1;
+            }
+            else if(target>arr[mid]){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+     public int path1(int []arr,int target){
+        int ans=-1;
+        int low=0;
+        int high=arr.length-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(arr[mid]==target){
+                ans=mid;
+                low=mid+1;
+            }
+            else if(target>arr[mid]){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+}
