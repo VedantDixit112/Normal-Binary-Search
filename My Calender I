@@ -1,0 +1,49 @@
+class MyCalendar {
+    List<Integer>ans=new ArrayList<>();
+    Map<Integer,Integer>map=new HashMap<>();
+    public MyCalendar() {
+        ans=new ArrayList<>();
+        map=new HashMap<>();
+    }
+    public boolean book(int start, int end) {
+        if(map.size()==0){
+            map.put(end,start);
+            ans.add(end);
+            return true;
+        }
+        else{
+            int val=path(ans,start);
+            if(val>=ans.size()){
+                map.put(end,start);
+                ans.add(end);
+                return true;
+            }
+            else if(start>=ans.get(val)){
+                map.put(end,start);
+                ans.add(end);
+                return true;
+            }
+            else if(start<=ans.get(val) && end<=map.get(ans.get(val))){
+                map.put(end,start);
+                ans.add(end);
+                return true;
+            }
+        }
+        return false;
+    }
+    public int path(List<Integer>ans,int target){
+        Collections.sort(ans);
+        int low=0;
+        int high=ans.size()-1;
+        while(low<=high){
+            int mid=(low+(high-low)/2);
+            if(target>=ans.get(mid)){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return low;
+    }
+}
